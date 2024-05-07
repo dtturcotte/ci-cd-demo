@@ -1,0 +1,8 @@
+.DS_Store
+*.db
+node_modules/
+.idea/
+package-lock.json
+.gitkeep
+hooks/*
+npm-debug.log

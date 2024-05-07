@@ -1,0 +1,21 @@
+{
+	"name": "cicd-app",
+	"version": "1.0.0",
+	"description": "Node.js app for CI/CD with GitHub Actions",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"test": "jest"
+	},
+	"jest": {
+		"testEnvironment": "node"
+	},
+	"dependencies": {
+		"express": "^4.18.1"
+	},
+	"devDependencies": {
+		"jest": "^28.1.3",
+		"supertest": "^6.2.3"
+	},
+	"type": "module"
+}
