@@ -4,7 +4,7 @@
 	"description": "Node.js app for CI/CD with GitHub Actions",
 	"main": "app.js",
 	"scripts": {
-		"start": "node app.js",
+		"start": "node server.js",
 		"test": "jest --detectOpenHandles"
 	},
 	"jest": {
