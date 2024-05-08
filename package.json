@@ -8,7 +8,17 @@
 		"test": "jest --detectOpenHandles"
 	},
 	"jest": {
-		"testEnvironment": "node"
+		"testEnvironment": "node",
+		"collectCoverage": true,
+		"coverageThreshold": {
+			"global": {
+				"branches": 50,
+				"functions": 50,
+				"lines": 50,
+				"statements": 50
+			}
+		},
+		"coverageDirectory": "./coverage"
 	},
 	"dependencies": {
 		"express": "^4.18.1"
