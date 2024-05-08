@@ -1,5 +1,3 @@
-# cicd-demo
+# ci-cd-demo
 
-CD/CD Demo
-
-![CI/CD Pipeline](https://github.com/dtturcotte/ci-cd-demo/workflows/CI/CD%20Pipeline/badge.svg)
+![ci](https://github.com/dtturcotte/ci-cd-demo/workflows/CI/CD%20Pipeline/badge.svg)
