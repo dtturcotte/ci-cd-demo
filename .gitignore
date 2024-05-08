@@ -6,3 +6,5 @@ package-lock.json
 .gitkeep
 hooks/*
 npm-debug.log
+coverage
+.nyc_output
