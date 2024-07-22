@@ -73,3 +73,18 @@ jobs:
               env:
                   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
                   IMAGE_NAME: my-image
+
+            - name: Set up kubectl
+              uses: azure/setup-kubectl@v1
+
+            - name: Decode kubeconfig and set up Kubernetes context
+              env:
+                  KUBECONFIG_ENCODED: ${{ secrets.KUBECONFIG }}
+              run: |
+                  echo "$KUBECONFIG_ENCODED" | base64 --decode > $HOME/.kube/config
+                  kubectl config view # Optional, for debugging
+
+            - name: Deploy to Kubernetes
+              run: |
+                  kubectl apply -f k8s/deployment.yaml
+                  kubectl apply -f k8s/service.yaml

@@ -1,0 +1,21 @@
+apiVersion: apps/v1 # Specifies the API version for deployment
+kind: Deployment # Specifies the kind of object this is in Kubernetes
+metadata:
+    name: cicd-app-deployment # Name of the deployment
+    labels:
+        app: cicd-app # Labels applied to this deployment for identifying and organizing
+spec:
+    replicas: 2 # Number of instances of the application to run
+    selector:
+        matchLabels:
+            app: cicd-app # Selector that determines which pods are controlled by this deployment
+    template:
+        metadata:
+            labels:
+                app: cicd-app # Labels to apply to pods that are created
+        spec:
+            containers:
+                - name: cicd-app # Name of the container within the pod
+                  image: dtturcotte/my-image:latest # The image to use for the container
+                  ports:
+                      - containerPort: 8080 # The port the container exposes
