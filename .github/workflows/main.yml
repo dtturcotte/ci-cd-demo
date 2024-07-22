@@ -77,6 +77,9 @@ jobs:
             - name: Set up kubectl
               uses: azure/setup-kubectl@v1
 
+            - name: Create .kube directory
+              run: mkdir -p $HOME/.kube
+
             - name: Decode kubeconfig and set up Kubernetes context
               env:
                   KUBECONFIG_ENCODED: ${{ secrets.KUBECONFIG }}
