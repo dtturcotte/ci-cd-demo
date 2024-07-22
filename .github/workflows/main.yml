@@ -83,7 +83,7 @@ jobs:
                   docker rm my-running-container || true
 
             - name: Run a new container
-              run: docker run --platform linux/amd64 -d --name my-running-container -p 8081:8081 dturcotte/ci-cd-demo:latest
+              run: docker run --platform linux/arm64 -d --name my-running-container -p 8081:8081 dturcotte/ci-cd-demo:latest
 
     kubernetes: # do not run this. I do not want to deploy a K8s cluster right now.
         needs: docker
