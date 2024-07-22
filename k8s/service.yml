@@ -8,5 +8,5 @@ spec:
     ports:
         - protocol: TCP # Protocol used by the service
           port: 80 # Port the service is accessed on from outside
-          targetPort: 8080 # Port within the container that the service routes to
+          targetPort: 8081 # Port within the container that the service routes to
     type: LoadBalancer # Type of service: LoadBalancer exposes the service externally using a cloud provider's load balancer

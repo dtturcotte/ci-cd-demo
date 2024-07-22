@@ -18,4 +18,4 @@ spec:
                 - name: cicd-app # Name of the container within the pod
                   image: dtturcotte/my-image:latest # The image to use for the container
                   ports:
-                      - containerPort: 8080 # The port the container exposes
+                      - containerPort: 8081 # The port the container exposes
