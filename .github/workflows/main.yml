@@ -74,11 +74,11 @@ jobs:
                   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
                   IMAGE_NAME: my-image
 
-    kubernetes:
+    kubernetes: # do not run this. I do not want to deploy a K8s cluster right now.
         needs: docker
         runs-on: ubuntu-latest
         # Ensure kubernetes only happens from the main branch
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == -1
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
@@ -96,5 +96,5 @@ jobs:
 
             - name: Deploy to Kubernetes
               run: |
-                  kubectl apply --validate=false -f k8s/deployment.yml
-                  kubectl apply --validate=false -f k8s/service.yml
+                  kubectl apply -f k8s/deployment.yml
+                  kubectl apply -f k8s/service.yml
