@@ -1,4 +1,4 @@
-apiVersion: apps/v1 # Specifies the API version for deployment
+apiVersion: apps/v1 # Specify the API version for deployment
 kind: Deployment # Specifies the kind of object this is in Kubernetes
 metadata:
     name: cicd-app-deployment # Name of the deployment
