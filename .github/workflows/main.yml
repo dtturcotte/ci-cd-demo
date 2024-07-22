@@ -68,7 +68,7 @@ jobs:
 
             - name: Build, tag, and push image to DockerHub
               run: |
-                  docker build --platform linux/arm64 -t $DOCKERHUB_USERNAME/$IMAGE_NAME:latest .
+                  docker build --platform linux/amd64 -t $DOCKERHUB_USERNAME/$IMAGE_NAME:latest .
                   docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
               env:
                   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -87,7 +87,7 @@ jobs:
 
             - name: Run a new container
               run: |
-                  docker run --platform linux/arm64 -d --name my-running-container -p 8081:8081 $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
+                  docker run --platform linux/amd64 -d --name my-running-container -p 8081:8081 $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
               env:
                   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
                   IMAGE_NAME: ci-cd-demo
