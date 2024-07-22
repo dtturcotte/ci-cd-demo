@@ -68,14 +68,17 @@ jobs:
 
             - name: Build, tag, and push image to DockerHub
               run: |
-                  docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME .
+                  docker build --platform linux/arm64 -t $DOCKERHUB_USERNAME/$IMAGE_NAME:latest .
                   docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
               env:
                   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
                   IMAGE_NAME: ci-cd-demo
 
             - name: Pull the latest image
-              run: docker pull dturcotte/ci-cd-demo:latest
+              run: docker pull $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
+              env:
+                  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+                  IMAGE_NAME: ci-cd-demo
 
             - name: Stop and remove any running container
               run: |
@@ -83,7 +86,11 @@ jobs:
                   docker rm my-running-container || true
 
             - name: Run a new container
-              run: docker run --platform linux/arm64 -d --name my-running-container -p 8081:8081 dturcotte/ci-cd-demo:latest
+              run: |
+                  docker run --platform linux/arm64 -d --name my-running-container -p 8081:8081 $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
+              env:
+                  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+                  IMAGE_NAME: ci-cd-demo
 
     kubernetes: # do not run this. I do not want to deploy a K8s cluster right now.
         needs: docker
