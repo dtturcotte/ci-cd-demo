@@ -74,24 +74,6 @@ jobs:
                   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
                   IMAGE_NAME: ci-cd-demo
 
-            - name: Pull the latest image
-              run: docker pull $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
-              env:
-                  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-                  IMAGE_NAME: ci-cd-demo
-
-            - name: Stop and remove any running container
-              run: |
-                  docker stop my-running-container || true
-                  docker rm my-running-container || true
-
-            - name: Run a new container
-              run: |
-                  docker run --platform linux/amd64 -d --name my-running-container -p 8081:8081 $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
-              env:
-                  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-                  IMAGE_NAME: ci-cd-demo
-
     kubernetes: # do not run this. I do not want to deploy a K8s cluster right now.
         needs: docker
         runs-on: ubuntu-latest
