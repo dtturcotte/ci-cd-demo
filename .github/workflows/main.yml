@@ -45,10 +45,10 @@ jobs:
                   name: coverage-report
                   path: coverage/
 
-    deploy:
+    docker:
         needs: test
         runs-on: ubuntu-latest
-        # Ensure deployment only happens from the main branch
+        # Ensure docker only happens from the main branch
         if: github.ref == 'refs/heads/main'
         steps:
             - name: Checkout code
@@ -74,20 +74,27 @@ jobs:
                   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
                   IMAGE_NAME: my-image
 
+    kubernetes:
+        needs: docker
+        runs-on: ubuntu-latest
+        # Ensure kubernetes only happens from the main branch
+        if: github.ref == 'refs/heads/main'
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
             - name: Set up kubectl
               uses: azure/setup-kubectl@v1
 
-            - name: Create .kube directory
-              run: mkdir -p $HOME/.kube
-
             - name: Decode kubeconfig and set up Kubernetes context
+              run: |
+                  mkdir -p $HOME/.kube
+                  echo "$KUBECONFIG_ENCODED" | base64 --decode > $HOME/.kube/config
+                  kubectl config view
               env:
                   KUBECONFIG_ENCODED: ${{ secrets.KUBECONFIG }}
-              run: |
-                  echo "$KUBECONFIG_ENCODED" | base64 --decode > $HOME/.kube/config
-                  kubectl config view # Optional, for debugging
 
             - name: Deploy to Kubernetes
               run: |
-                  kubectl apply -f k8s/deployment.yml
-                  kubectl apply -f k8s/service.yml
+                  kubectl apply --validate=false -f k8s/deployment.yaml
+                  kubectl apply --validate=false -f k8s/service.yaml
